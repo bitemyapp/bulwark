@@ -1,6 +1,6 @@
 # bulwark
 
-Throttling / IP banning library for Ring-compatible Clojure apps based on Kickstarter's Rack::attack
+Throttling / IP banning library for Ring-compatible Clojure apps based on Kickstarter's Rack::attack found at https://github.com/kickstarter/rack-attack
 
 ## Usage
 
