@@ -1,13 +1,13 @@
 # bulwark
 
-A Clojure library designed to ... well, that part is up to you.
+Throttling / IP banning library for Ring-compatible Clojure apps based on Kickstarter's Rack::attack
 
 ## Usage
 
-FIXME
+TODO!
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2013 Chris Allen
 
 Distributed under the Eclipse Public License, the same as Clojure.
