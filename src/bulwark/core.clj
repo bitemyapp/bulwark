@@ -93,15 +93,25 @@
           whitelist (seq (:whitelist work))
           blacklist (seq (:blacklist work))
           throttle (seq (:throttle work))
-          throttle-with-id (map (fn [[name limit period id-fn]] [(id-fn req) name limit period id-fn]) throttle)
-          throttled (set (map #(first %) throttle-with-id))
           log (seq (:log work))
-          reject-blacklisted (and work? (or (and whitelist (sumtin-failed? req whitelist)) (sumtin-failed? req blacklist)))
-          reject-throttled (and work? (throttle-id? throttle-with-id query-hits))
-          response (or (and reject-blacklisted (blacklist-response req)) (and reject-throttled (throttle-response req)) (app req))]
-          ;; track (seq (:track work))
-          ;; propagate (seq (:propagate work))
-      ;; track and propagate don't do anything. Not enough coffee.
+          track (seq (:track work))
+          propagate (seq (:propagate work))
+          throttle-with-id (map (fn [[name limit period id-fn]]
+                                  [(id-fn req) name limit period id-fn])
+                                throttle)
+          throttled (set (map #(first %) throttle-with-id))
+          reject-blacklisted (and work?
+                                  (or (and whitelist
+                                           (sumtin-failed? req whitelist))
+                                      (sumtin-failed? req blacklist)))
+          reject-throttled (and work?
+                                (throttle-id? throttle-with-id query-hits))
+          response (or (and reject-blacklisted
+                            (blacklist-response req))
+                       (and reject-throttled
+                            (throttle-response req))
+                       (app req))]
+      ;; track and propagate don't do anything. More coffee plz.
       (doseq [id throttled]
         (record-hit id req))
       response)))
