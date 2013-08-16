@@ -7,4 +7,3 @@
                  [clj-time "0.5.1"]
                  [com.cemerick/pomegranate "0.2.0"]
                  [com.taoensso/carmine "2.2.0"]])
-
