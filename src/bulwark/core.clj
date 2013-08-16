@@ -99,7 +99,8 @@
           throttle-with-id (map (fn [[name limit period id-fn]]
                                   [(id-fn req) name limit period id-fn])
                                 throttle)
-          throttled (set (map #(first %) throttle-with-id))
+          throttled (set (map #(first %)
+                              throttle-with-id))
           reject-blacklisted (and work?
                                   (or (and whitelist
                                            (sumtin-failed? req whitelist))
