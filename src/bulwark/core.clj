@@ -78,8 +78,6 @@
                  (let [past (- now period)
                        queried (query-hits id past now)
                        accessed (count queried)]
-                   (println "pnlpa: " period now limit past accessed)
-                   (println "q: " queried)
                    (> accessed limit)))
                throttled))))
 
@@ -104,7 +102,6 @@
           ;; track (seq (:track work))
           ;; propagate (seq (:propagate work))
       ;; track and propagate don't do anything. Not enough coffee.
-      (println "rt: " reject-throttled)
       (doseq [id throttled]
         (record-hit id req))
       response)))
