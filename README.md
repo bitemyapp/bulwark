@@ -7,6 +7,7 @@ Throttling / IP banning library for Ring-compatible Clojure apps based on Kickst
 Add to :dependencies in your Leiningen project.clj:
 
     [bulwark "0.0.1"]
+    [com.taoensso/carmine "2.2.0"] ;; if you're using the default Redis persistence layer.
 
 Add the protect middleware to your app var. Example from neubite:
 
