@@ -38,6 +38,7 @@ To throttle by a particular key, whatever key you return in the passed fn counts
 Period is in seconds. 1 request allowed every 5 seconds in the above example. You can key by arbitrary application data. I recommend using user-middleware like I do to inject user sessions/id into the request before the protect middleware.
 
 ## For non-muggles
+
 You can pass a config as a trailing argument like
 
     (protect-middleware app config)
