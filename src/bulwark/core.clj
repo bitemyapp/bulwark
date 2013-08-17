@@ -20,8 +20,6 @@
      (fn [[k v]]
        (has-stuff? v)) seqs-only)))
 
-(defn set-config! [config])
-
 (defn now []
   "Wrapper in case it needs swapped out."
   (time/now))
@@ -81,9 +79,9 @@
                    (> accessed limit)))
                throttled))))
 
-(defn protect-middleware [app]
+(defn protect-middleware [app & args]
   (fn [req]
-    (let [cm @config
+    (let [cm (or (first args) @config)
           ip (:remote-addr req)
           record-hit (:record-hit cm)
           query-hits (:query-hits cm)

@@ -4,15 +4,29 @@
             [fusillade.core :refer [burst]]
             [ring.mock.request :refer :all]))
 
+(defn app [req] {:status 200 :body "kosher"})
+
 (deftest test-exercise-with-mock
   (testing "Test blacklisting"
-    (let [protect (protect-middleware {})
-          _ (blacklist "nothing touches /untouchable" (fn [req] (not= (:uri req) "/untouchable")))
-          _ (whitelist "only /okay is allowed"        (fn [req] (= (:uri req) "/okay")))
-          _ (throttle  "localhost is throttled" 3 10  (fn [req] (:remote-addr req)))]
+    (let [protect (protect-middleware app
+                   {:blacklist [["nothing touches /untouchable"
+                                 (fn [req] (not= (:uri req) "/untouchable"))]]})]
       (is (= (:status (protect (request :get "/untouchable")))
-             403))))
+             403))
+      (is (= (:status (protect (request :get "/okay")))
+             200))))
+
   (testing "Test whitelisting"
-    (is (= 0 0)))
+    (let [protect (protect-middleware app
+                   {:whitelist [["only /okay is allowed"
+                                 (fn [req] (= (:uri req) "/okay"))]]})]
+      (is (= (:status (protect (request :get "/okay")))
+             200))
+      (is (= (:status (protect (request :get "/notokay")))
+             403))))
+
   (testing "Test throttling"
-    (is (= 0 0))))
+    (let [protect (protect-middleware app
+                   {:throttle [["localhost is throttled" 3 10  (fn [req] (:remote-addr req))]]})]
+      (is (= (:status (protect (request :get "/okay")))
+             200)))))
