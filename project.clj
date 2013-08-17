@@ -1,4 +1,4 @@
-(defproject bulwark "0.0.1"
+(defproject bulwark "0.0.2"
   :description "Defensive Ring middleware like Rack::attack."
   :url "http://github.com/bitemyapp/bulwark"
   :license {:name "Eclipse Public License"
