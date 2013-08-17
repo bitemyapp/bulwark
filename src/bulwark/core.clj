@@ -70,6 +70,7 @@
   (some false? (test-list req tests)))
 
 (defn throttle-id? [throttled query-hits]
+  {:pre  [(fn? query-hits)]}
   (let [now (epic-epoch)]
     (some true?
           (map (fn [[id name limit period id-fn]]
@@ -103,7 +104,7 @@
                                   (or (and whitelist
                                            (sumtin-failed? req whitelist))
                                       (sumtin-failed? req blacklist)))
-          reject-throttled (and work?
+          reject-throttled (and work? throttle
                                 (throttle-id? throttle-with-id query-hits))
           response (or (and reject-blacklisted
                             (blacklist-response req))

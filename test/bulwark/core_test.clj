@@ -1,10 +1,15 @@
 (ns bulwark.core-test
   (:require [clojure.test :refer :all]
             [bulwark.core :refer :all]
+            [bulwark.redis :as redis]
             [fusillade.core :refer [burst]]
             [ring.mock.request :refer :all]))
 
 (defn app [req] {:status 200 :body "kosher"})
+
+(defn base-config [config]
+  (merge {:record-hit redis/record-hit
+          :query-hits redis/query-hits} config))
 
 (deftest test-exercise-with-mock
   (testing "Test blacklisting"
@@ -27,6 +32,7 @@
 
   (testing "Test throttling"
     (let [protect (protect-middleware app
-                   {:throttle [["localhost is throttled" 3 10  (fn [req] (:remote-addr req))]]})]
+                   (base-config {:throttle [["localhost is throttled" 3 10
+                                             (fn [req] (:remote-addr req))]]}))]
       (is (= (:status (protect (request :get "/okay")))
              200)))))
