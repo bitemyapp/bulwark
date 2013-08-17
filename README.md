@@ -4,6 +4,10 @@ Throttling / IP banning library for Ring-compatible Clojure apps based on Kickst
 
 ## Usage
 
+Add to :dependencies in your Leiningen project.clj:
+
+    [bulwark "0.0.1"]
+
 Add the protect middleware to your app var. Example from neubite:
 
     (def app (-> (apply routes all-routes)
