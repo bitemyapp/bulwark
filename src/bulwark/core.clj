@@ -77,7 +77,7 @@
                  (let [past (- now period)
                        queried (query-hits id past now)
                        accessed (count queried)]
-                   (> accessed limit)))
+                   (>= accessed limit)))
                throttled))))
 
 (defn protect-middleware [app & args]

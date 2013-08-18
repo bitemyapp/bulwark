@@ -34,5 +34,5 @@
     (let [protect (protect-middleware app
                    (base-config {:throttle [["localhost is throttled" 3 10
                                              (fn [req] (:remote-addr req))]]}))]
-      (is (= (:status (protect (request :get "/okay")))
-             200)))))
+      (is (= (take 4 (repeatedly #(:status (protect (request :get "/okay")))))
+             '(200 200 200 503))))))
