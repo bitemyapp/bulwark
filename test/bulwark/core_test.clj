@@ -2,7 +2,6 @@
   (:require [clojure.test :refer :all]
             [bulwark.core :refer :all]
             [bulwark.redis :as redis]
-            [fusillade.core :refer [burst]]
             [ring.mock.request :refer :all]))
 
 (defn app [req] {:status 200 :body "kosher"})

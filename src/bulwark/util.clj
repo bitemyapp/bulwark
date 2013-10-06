@@ -5,7 +5,7 @@
   (time/interval (time/epoch) (time/now)))
 
 (defn epic-epoch []
-  (time/in-secs (epoch)))
+  (time/in-seconds (epoch)))
 
 (defn precise-epoch []
-  (time/in-msecs (epoch)))
+  (time/in-millis (epoch)))
