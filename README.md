@@ -49,8 +49,9 @@ I added this so I could test bulwark easily and also so the Clojure IRC channel 
 
 ## Changelog
 
-0.0.4 Merging of config maps for partial overrides, overriding of condition handlers, documenting "work" variable name, updated clj-time to new API
-0.0.3 Initial usable release
+* 0.0.4 Merging of config maps for partial overrides, overriding of condition handlers, documenting "work" variable name, updated clj-time to new API
+
+* 0.0.3 Initial usable release
 
 ## License
 
